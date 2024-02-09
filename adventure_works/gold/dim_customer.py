@@ -9,7 +9,7 @@ from pyspark.sql.window import Window
 # COMMAND ----------
 
 # DBTITLE 1,Leitura da tabela customer
-df_customer = read_silver('dim_customer')
+df_customer = read_table('silver', 'dim_customer')
 
 # COMMAND ----------
 
@@ -17,4 +17,4 @@ df_final = df_customer.withColumn("insert_date", date_format(current_timestamp()
 
 # COMMAND ----------
 
-load_gold(df_final, 'dim_customer')
+load_table(df_final, 'gold', 'dim_customer')

@@ -9,7 +9,7 @@ from pyspark.sql.window import Window
 # COMMAND ----------
 
 # DBTITLE 1,Leitura da tabela customer
-df_customer = read_bronze('customer').select(
+df_customer = read_table('bronze', 'customer').select(
      col('CustomerID').alias("id_customer")
     ,col('Title').alias('title')
     ,concat_ws(' ', col('FirstName'), col('MiddleName'), col('LastName')).alias('name')
@@ -22,7 +22,7 @@ df_customer = read_bronze('customer').select(
 # COMMAND ----------
 
 # DBTITLE 1, Leitura da tabela customeraddress para trazer o id_address
-df_customer_address = read_bronze('customeraddress').select(
+df_customer_address = read_table('bronze', 'customeraddress').select(
      col('CustomerID').alias('id_customer')
     ,col('AddressID').alias('id_address')
     ,col('AddressType').alias('type_address')
@@ -38,7 +38,7 @@ df_join_customer_address = df_customer.join(df_rank, on=[df_customer.id_customer
 # COMMAND ----------
 
 # DBTITLE 1,Leitura da tabela address e join para trazer os dados de endereço
-df_address = read_bronze('address').select(
+df_address = read_table('bronze', 'address').select(
      col('AddressID').alias('id_address')
     ,col('AddressLine1').alias('address_line_1')
     ,col('AddressLine2').alias('address_line_2')
@@ -56,4 +56,4 @@ df_final = df_join_address.withColumn("insert_date", date_format(current_timesta
 
 # COMMAND ----------
 
-load_silver(df_final, 'dim_customer')
+load_table(df_final, 'silver', 'dim_customer')

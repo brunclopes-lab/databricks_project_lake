@@ -9,7 +9,7 @@ from pyspark.sql.window import Window
 # COMMAND ----------
 
 # DBTITLE 1,Leitura da tabela sales
-df_sales_order_header = read_silver('fact_orders')
+df_sales_order_header = read_table('silver', 'fact_orders')
 
 # COMMAND ----------
 
@@ -20,4 +20,4 @@ df_final = df_sales_order_header.withColumn("insert_date", date_format(current_t
 
 # COMMAND ----------
 
-load_gold_fact_full(df_final, 'fact_orders', 'order_date')
+load_fact_full(df_final, 'gold', 'fact_orders', 'order_date')

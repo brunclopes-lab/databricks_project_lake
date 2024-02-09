@@ -8,7 +8,7 @@ from pyspark.sql.functions import *
 # COMMAND ----------
 
 # DBTITLE 1,Leitura da tabela product
-df_product = read_bronze('product').select(
+df_product = read_table('bronze', 'product').select(
      col('ProductID').alias("id_product")
     ,col('Name').alias('product_name')
     ,col('ProductNumber').alias('number_product')
@@ -27,7 +27,7 @@ df_product = read_bronze('product').select(
 # COMMAND ----------
 
 # DBTITLE 1,Leitura da tabela productcategory para trazer a categoria
-df_product_category = read_bronze('productcategory').select(
+df_product_category = read_table('bronze', 'productcategory').select(
      col('ProductCategoryID').alias('id_product_category')
     ,col('Name').alias('category_name')
 )
@@ -37,7 +37,7 @@ df_join_product_category = df_product.join(df_product_category, on=[df_product.i
 # COMMAND ----------
 
 # DBTITLE 1,Leitura da tabela productmodel para trazer o modelo 
-df_product_model = read_bronze('productmodel').select(
+df_product_model = read_table('bronze', 'productmodel').select(
      col('ProductModelID').alias('id_product_model')
     ,col('Name').alias('model_name')
 )
@@ -50,4 +50,4 @@ df_final = df_join_product_model.withColumn("insert_date", date_format(current_t
 
 # COMMAND ----------
 
-load_silver(df_final, 'dim_product')
+load_table(df_final, 'silver', 'dim_product')

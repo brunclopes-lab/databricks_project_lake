@@ -19,7 +19,3 @@ spark.conf.set("fs.azure.account.oauth.provider.type.dlsprojlakehousedev.dfs.cor
 spark.conf.set("fs.azure.account.oauth2.client.id.dlsprojlakehousedev.dfs.core.windows.net", client_id)
 spark.conf.set("fs.azure.account.oauth2.client.secret.dlsprojlakehousedev.dfs.core.windows.net", client_secret)
 spark.conf.set("fs.azure.account.oauth2.client.endpoint.dlsprojlakehousedev.dfs.core.windows.net", f"https://login.microsoftonline.com/{tenant_id}/oauth2/token")
-
-# COMMAND ----------
-
-display(dbutils.fs.ls("abfss://controller@dlsprojlakehousedev.dfs.core.windows.net"))

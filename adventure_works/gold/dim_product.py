@@ -8,7 +8,7 @@ from pyspark.sql.functions import *
 # COMMAND ----------
 
 # DBTITLE 1,Leitura da tabela product
-df_product = read_silver('dim_product')
+df_product = read_table('silver', 'dim_product')
 
 # COMMAND ----------
 
@@ -16,4 +16,4 @@ df_final = df_product.withColumn("insert_date", date_format(current_timestamp() 
 
 # COMMAND ----------
 
-load_gold(df_final, 'dim_product')
+load_table(df_final, 'gold', 'dim_product')

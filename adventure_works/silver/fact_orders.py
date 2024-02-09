@@ -9,7 +9,7 @@ from pyspark.sql.window import Window
 # COMMAND ----------
 
 # DBTITLE 1,Leitura da tabela sales
-df_sales_order_header = read_bronze('salesorderheader').select(
+df_sales_order_header = read_table('bronze', 'salesorderheader').select(
      col('SalesOrderID').alias("id_sales_order")
     ,col('RevisionNumber').alias('revision_number')
     ,col('OrderDate').alias('order_date')
@@ -33,7 +33,7 @@ df_sales_order_header = read_bronze('salesorderheader').select(
 # COMMAND ----------
 
 # DBTITLE 1,Leitura da tabela sales detail e join 
-df_sales_order_detail = read_bronze('salesorderdetail').select(
+df_sales_order_detail = read_table('bronze', 'salesorderdetail').select(
      col('SalesOrderID').alias('id_sales_order')
     ,col('SalesOrderDetailID').alias('id_sales_order_detail')
     ,col('OrderQty').alias('qty_order')
@@ -54,4 +54,4 @@ df_final = df_join_sales_detail.withColumn("insert_date", date_format(current_ti
 
 # COMMAND ----------
 
-load_silver_fact_full(df_final, 'fact_orders', 'order_date')
+load_fact_full(df_final, 'silver', 'fact_orders', 'order_date')
