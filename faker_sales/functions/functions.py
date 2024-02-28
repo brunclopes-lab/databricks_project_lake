@@ -44,7 +44,6 @@ def read_stream(schema, path, path_checkpoint):
     .option("cloudFiles.format", "json")\
     .option("cloudFiles.inferColumnTypes", "true")\
     .option("cloudFiles.schemaLocation", f"{container_source}/{path_checkpoint}/schemas")\
-    .option("maxFilesPerTrigger", "1")\
     .load(f"{container_source}/{path}")
     print("Leitura utilizando o AutoLoader")
     return df
@@ -58,7 +57,6 @@ def write_stream(df, schema, table_name):
     df.writeStream\
     .format("delta")\
     .option("checkpointLocation", f"{container_target}/{table_name}/_checkpoint")\
-    .option("maxFilesPerTrigger", "1")\
-    .trigger(once=True)\
+    .trigger(availableNow=True)\
     .toTable(f"{catalog}.{schema}.{table_name}", path=deltaFile)
     print(f"Escrita no catálogo {catalog}, no schema {schema} e na tabela {table_name} utilizando o AutoLoader")
