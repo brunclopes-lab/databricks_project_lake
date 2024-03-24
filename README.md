@@ -5,7 +5,7 @@ O repositório contém alguns pequenos projetos realizados no workspace do Datab
 - Delta Live Tables
 - Unity Catalog
 
-Dentre os projetos criados, temos dados obtidos de API, banco de dados relacional e também a lib Faker do Python, que simula dados fictícios. 
+Dentre os projetos criados, temos dados obtidos de API, banco de dados relacional e também utilizando a lib Faker do Python, que simula dados fictícios. 
 As ingestões foram orquestradas utilizando os Worflows do Databricks, e a ingestão foi feita em tabelas externas, no Data Lake do Azure. 
 O que envolve leitura e escrita foi definido por funções, que realizam a leitura e ingestão de tabela ou arquivo, para facilitar os ajustes de código, seguindo as boas práticas de engenharia de software.
 
